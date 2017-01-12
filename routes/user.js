@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var mysql = require("mysql");
 var hash = require('../hash.js');
+var fs = require('fs');
+
+var file = JSON.parse(fs.readFileSync('mysql.json', 'utf8'));
 
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "cmi",
-    password: "cmi",
-    database: "cmi"
+    host: file.host,
+    user: file.user,
+    password: file.password,
+    database: file.database
 });
 
 router.get('/', function(req, res, next) {

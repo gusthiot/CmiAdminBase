@@ -1,7 +1,9 @@
 var crypto = require('crypto');
+var fs = require('fs');
 
-var hashPwd = '384c649b3bad0104c1fba9e351d3649c2762e6dffafa32d9dfb8dad060bea6b6a6ba8f74177ba356640b3b25a7a0fd7cd46793ee11daa1cb982d71c6de4bdebb';
-var saltPwd = 'f092ab72a2c90172';
+var file = JSON.parse(fs.readFileSync('hash.json', 'utf8'));
+var hashPwd = file.hashPwd;
+var saltPwd = file.saltPwd;
 
 var genRandomString = function(length){
     return crypto.randomBytes(Math.ceil(length/2))

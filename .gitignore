@@ -1,2 +1,13 @@
 .idea/
 node_modules/
+hash.json
+mysql.json
+ca-crt.pem
+ca-crt.srl
+ca-key.pem
+client-crt.pem
+client-csr.pem
+client-key.pem
+server-crt.pem
+server-csr.pem
+server-key.pem
