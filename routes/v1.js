@@ -14,7 +14,11 @@ var con = mysql.createConnection({
 });
 
 router.get('/', function(req, res, next) {
-    if (!req.query.id || !req.query.pwd || !hash.saltHashTest(req.query.pwd)) {
+    res.render('index', { title: 'Welcome to CmiAdminBase API version 1.0' });
+});
+
+router.get('/:pwd/user/:userId', function(req, res, next) {
+    if (!req.params.userId || !req.params.pwd || !hash.saltHashTest(req.params.pwd)) {
         var err = new Error('Not Found');
         err.status = 404;
         next(err);
@@ -25,13 +29,11 @@ router.get('/', function(req, res, next) {
             "FROM comptes JOIN (SELECT ID_Compte, ID_User FROM utilcomptes WHERE ID_User = ?) " +
             "uc ON uc.ID_Compte = comptes.ID_Compte JOIN (SELECT ID_User, Labo, projectnum FROM utilisateur) u " +
             "ON uc.ID_User = u.ID_User WHERE comptes.ID_Compte != 'cp0003' ORDER BY NumeroCompte";
-        con.query(query, [req.query.id], function (err, rows) {
+        con.query(query, [req.params.userId], function (err, rows) {
             if (err) {
                 next(err);
             }
             else {
-                console.log('Data received from Db !');
-                console.log(req.query.id);
                 res.send(rows);
             }
         });
